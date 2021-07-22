@@ -21,6 +21,21 @@ def main():
     g.my_app.compile_template(g.root_source_dir)
     g.my_app.run(data=data, state=state)
 
+#MAX
+
+# @TODO: class not presented in sample
+# -------------------------
+# @TODO: stepper starts from input project
+# @TODO:  Automatic conversion to rectangle format - убрать и писать что разные shapes
+# 1. input
+# 2. datasets
+# 3. classes
+# 4. settings + download annotations with progress bar
+# 5.
+
+
+
+# -------------------------
 
 # @TODO: Umar - скрол горизонтальный для confusion matrix - на стороне виджета? +
 # @TODO: DESCRIPTION 2 "bird" objects are not detected (bird <-> None) +
