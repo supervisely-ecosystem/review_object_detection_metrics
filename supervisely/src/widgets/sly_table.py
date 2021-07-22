@@ -12,6 +12,7 @@ class SlyTable:
         self._columns = columns
         self._data = []
 
+    #@TODO: list or dict
     def add_rows(self, rows):
         self.data.append(rows)
 
