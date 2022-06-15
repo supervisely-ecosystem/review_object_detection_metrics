@@ -1,6 +1,6 @@
 import supervisely as sly
 import globals as g
-from ui.ui import init
+import ui
 
 
 def main():
@@ -12,11 +12,11 @@ def main():
     data = {}
     state = {}
 
-    from ui.test.test import init_demo_sample
-    init_demo_sample(data, state)
+    from test import test
+    test.init_demo_sample(data, state)
 
     # init data for UI widgets
-    init(data, state)
+    ui.init(data, state)
     g.my_app.compile_template(g.root_source_dir)
     g.my_app.run(data=data, state=state)
 
