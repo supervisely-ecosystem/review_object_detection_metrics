@@ -1,7 +1,6 @@
 import supervisely as sly
 import globals as g
 import ui
-import test
 
 
 def main():
@@ -13,7 +12,8 @@ def main():
     data = {}
     state = {}
 
-    test.init_demo_sample(data, state)
+    # from supervisely.src.ui.test import test
+    # test.init_demo_sample(data, state)
 
     # init data for UI widgets
     ui.init(data, state)
