@@ -18,10 +18,6 @@ ui_sources_dir = os.path.join(source_path, "ui")
 sys.path.append(ui_sources_dir)
 sly.logger.info(f"Added to sys.path: {ui_sources_dir}")
 
-ui_test_sources_dir = os.path.join(source_path, "ui", "test")
-sys.path.append(ui_test_sources_dir)
-sly.logger.info(f"Added to sys.path: {ui_test_sources_dir}")
-
 # only for convenient debug
 debug_env_path = os.path.join(root_source_dir, "supervisely", "debug.env")
 secret_debug_env_path = os.path.join(root_source_dir, "supervisely", "secret_debug.env")
