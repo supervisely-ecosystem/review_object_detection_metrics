@@ -12,7 +12,7 @@ def main():
     data = {}
     state = {}
 
-    from supervisely.src.ui.test import test
+    from ui.test import test
     test.init_demo_sample(data, state)
 
     # init data for UI widgets
