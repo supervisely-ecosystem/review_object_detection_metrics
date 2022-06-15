@@ -1,7 +1,7 @@
 import supervisely as sly
 import globals as g
 import ui
-from test import test
+import test
 
 
 def main():
