@@ -14,6 +14,7 @@
   >
     Compare classes
   </el-button>
+
   <sly-el-table-selection-container
     :data="data.classesTable"
     :selected="state.selectedClasses"
@@ -24,7 +25,6 @@
       v-if="data.classesTable"
       class="ultra-table"
       :data="data.classesTable"
-      ref="clsTable"
       @selection-change="
                 (val) => {
                     state.selectedClasses = val.map(x => x.name1);
@@ -92,7 +92,7 @@
       type="warning"
       class="regular mt10"
       :plain="true"
-      @click="state.restartFrom = 3; $refs.clsTable.clearSelection()"
+      @click="state.restartFrom = 3; $refs['sly-el-table-with-selection'].clearSelection()"
     >
       <i class="zmdi zmdi-rotate-left mr5"></i> Reset classes
     </el-button>
