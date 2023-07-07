@@ -15,7 +15,7 @@
   "gui_template": "supervisely/src/gui.html",
   "task_location": "workspace_tasks",
   "isolate": true,
-  "icon": "https://i.imgur.com/N0doZD9.png",
+  "icon": "media/icon.png",
   "icon_background": "#FFFFFF",
   "poster": "https://user-images.githubusercontent.com/48245050/182582390-378b2853-2038-49d4-99bb-1d656eda7fdf.png"
 }
