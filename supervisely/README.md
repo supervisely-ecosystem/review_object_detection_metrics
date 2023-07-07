@@ -47,13 +47,13 @@ dashboard with tons of visualizations.
 Prepare two projects: ground truth and predictions. Each bounding box in predictions project should have a tag 
 `confidence` with value between 0 and 1. You can use our prepared sample projects: 
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/pascal_sample_gt" src="https://i.imgur.com/wYPHUJ0.png" width="350px"/>
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/pascal_sample_gt" src="media/p1.png" width="350px"/>
 
 and 
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/pascal_sample_pred" src="https://i.imgur.com/q6xUnW6.png" width="390px"/>
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/pascal_sample_pred" src="media/p2.png" width="390px"/>
 
 
 # Screenshot
 
-<img src="https://i.imgur.com/xBrUAv9.png"/>
+<img src="media/s1.png"/>
