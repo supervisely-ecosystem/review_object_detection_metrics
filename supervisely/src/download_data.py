@@ -169,7 +169,9 @@ def download(image_dict, percentage, cache, batch_size=200, show_info=False):
             # 0% - 1 image
             # 100% - all images
             sample_size = min(dataset_length, int(np.ceil(dataset_length / 100 * percentage)))
+            print("Sample size after min", sample_size)
             sample_size = max(1, sample_size)
+            print("Sample size after max", sample_size)
             return sample_size
 
         global total_image_num
@@ -180,6 +182,8 @@ def download(image_dict, percentage, cache, batch_size=200, show_info=False):
             dataset_length = len(value)
             total_image_num[key] = dataset_length
             sample_size = get_sample_size(dataset_length, percentage)
+            print("Sample size", sample_size)
+            print("Dataset length", dataset_length)
             # Chooses k unique random elements from a population sequence or set
             indexes[key] = random.sample(range(dataset_length), sample_size)
         return indexes
