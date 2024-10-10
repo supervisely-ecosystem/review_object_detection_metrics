@@ -10,7 +10,7 @@
   ],
   "description": "Interactive Confusion matrix, mAP, ROC and more",
   "docker_image": "supervisely/base-py-sdk:6.72.147",
-  "instance_version": "6.4.57",
+  "instance_version": "6.9.11",
   "main_script": "supervisely/src/main.py",
   "gui_template": "supervisely/src/gui.html",
   "task_location": "workspace_tasks",
