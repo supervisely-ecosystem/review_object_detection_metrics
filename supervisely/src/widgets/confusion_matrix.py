@@ -14,7 +14,11 @@ def plt2bb(batch_element, encoder, type_coordinates=CoordinatesType.ABSOLUTE,
         # class_title = ann['classTitle']
         class_title = ann.obj_class.name
         # points = ann['points']['exterior']
-        points = ann.geometry.to_json()['points']['exterior']
+        try:
+            points = ann.geometry.to_json()['points']['exterior']
+        except KeyError:
+            sly.logger.warning(f"{class_title} geometry has no points")
+            continue
         x1, y1 = points[0]
         x2, y2 = points[1]
 
