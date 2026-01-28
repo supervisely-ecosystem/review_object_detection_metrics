@@ -90,4 +90,3 @@ target/
 venv
 /supervisely_lib/
 /supervisely_lib/
-supervisely.env
