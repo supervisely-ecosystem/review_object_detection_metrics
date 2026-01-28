@@ -113,11 +113,22 @@ def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5
     # key_list = list(set([el[-2] for el in src_dict]))
     key_list = src_dict.keys()
 
+    background_only_datasets = []
+
     for dataset_key in key_list:
         src_set_list = []
         [src_set_list.extend(el[-1]) for el in src_dict[dataset_key] if el[-2] == dataset_key]
         dst_set_list = []
         [dst_set_list.extend(el[-1]) for el in dst_dict[dataset_key] if el[-2] == dataset_key]
+
+        # Skip datasets that contain only background images (no annotations for selected classes)
+        if len(src_set_list) == 0:
+            sly.logger.warning(
+                f"Dataset '{dataset_key}' contains only background images (no annotations for selected classes). "
+                f"Skipping this dataset from mAP calculation."
+            )
+            background_only_datasets.append(dataset_key)
+            continue
 
         rez = calculate_mAP(src_set_list, dst_set_list, iou, score, method)
 
@@ -127,8 +138,27 @@ def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5
         if rez is not None:
             dataset_results.append(rez['per_class'])
         else:
-            raise ValueError("Unable to calculate mAP score. You can increase sample size or select other classes.")
+            raise ValueError(
+                f"Unable to calculate mAP score for dataset '{dataset_key}'. "
+                f"This may occur if the dataset contains only background images without annotations."
+            )
         datasets_pd_data.append(current_data)
+
+    # If all datasets contain only background images, raise an informative error
+    if len(datasets_pd_data) == 0:
+        raise ValueError(
+            f"Unable to calculate mAP score: all datasets in the sample contain only background images "
+            f"(no annotations for the selected classes). "
+            f"Background-only datasets: {background_only_datasets}. "
+            f"Try increasing the sample size or selecting different classes that have annotations."
+        )
+
+    if len(background_only_datasets) > 0:
+        sly.logger.info(
+            f"mAP calculation completed. Note: {len(background_only_datasets)} dataset(s) were skipped "
+            f"because they contain only background images: {background_only_datasets}"
+        )
+
     return datasets_pd_data
 
 
@@ -143,6 +173,15 @@ def calculate_project_mAP(src_list, dst_list, method, dst_project_name, target_c
     for dataset_key in key_list:
         [src_set_list.extend(el[-1]) for el in src_list[dataset_key]]
         [dst_set_list.extend(el[-1]) for el in dst_list[dataset_key]]
+
+    # Check if the sampled data contains only background images (no annotations)
+    if len(src_set_list) == 0:
+        raise ValueError(
+            f"Unable to calculate mAP score for project '{dst_project_name}'. "
+            f"The sampled images contain only background data (no annotations for the selected classes). "
+            f"This can happen when datasets contain mostly background images. "
+            f"Try increasing the sample size or selecting different classes that have annotations."
+        )
 
     prj_rez = calculate_mAP(src_set_list, dst_set_list, iou, score, method)
     rez_d = dict2tuple(prj_rez, target_class)
