@@ -150,6 +150,9 @@ def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5
     if len(background_only_datasets) > 0:
         sly.logger.warning("Some datasets were skipped during mAP calculation because they contain only background images.", extra={"datasets skipped": background_only_datasets})
 
+    if len(datasets_pd_data) == 0:
+        raise ValueError("Unable to calculate mAP score: no datasets with valid annotations found. Try increasing the sample size or selecting different classes that have annotations.")
+
     return datasets_pd_data
 
 
