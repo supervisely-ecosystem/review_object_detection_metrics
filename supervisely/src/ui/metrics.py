@@ -129,15 +129,13 @@ def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5
             continue
 
         rez = calculate_mAP(src_set_list, dst_set_list, iou, score, method)
-
+        if rez is None:
+            sly.logger.error("Unable to calculate mAP score for dataset {}. You can increase sample size or select other classes.".format(dataset_key))
+            continue
+        dataset_results.append(rez['per_class'])
         rez_d = dict2tuple(rez, target_class)
         current_data = [dataset_key]
         current_data.extend(rez_d)
-        if rez is not None:
-            dataset_results.append(rez['per_class'])
-        else:
-            sly.logger.error("Unable to calculate mAP score for dataset {}. You can increase sample size or select other classes.".format(dataset_key))
-            continue
         datasets_pd_data.append(current_data)
 
     if len(background_only_datasets) == len(key_list):
