@@ -108,16 +108,25 @@ def calculate_image_mAP(src_list, dst_list, method, target_class=None, iou=0.5, 
 
 
 def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5, score=0.01):
+    if not src_dict:
+        raise ValueError("Source is empty. Cannot calculate dataset mAP.")
+
     datasets_pd_data = list()
     dataset_results = []
     # key_list = list(set([el[-2] for el in src_dict]))
     key_list = src_dict.keys()
+
+    background_only_datasets = []
 
     for dataset_key in key_list:
         src_set_list = []
         [src_set_list.extend(el[-1]) for el in src_dict[dataset_key] if el[-2] == dataset_key]
         dst_set_list = []
         [dst_set_list.extend(el[-1]) for el in dst_dict[dataset_key] if el[-2] == dataset_key]
+
+        if len(src_set_list) == 0: # -> no valid annotations in source set, skip
+            background_only_datasets.append(dataset_key)
+            continue
 
         rez = calculate_mAP(src_set_list, dst_set_list, iou, score, method)
 
@@ -127,8 +136,20 @@ def calculate_dataset_mAP(src_dict, dst_dict, method, target_class=None, iou=0.5
         if rez is not None:
             dataset_results.append(rez['per_class'])
         else:
-            raise ValueError("Unable to calculate mAP score. You can increase sample size or select other classes.")
+            sly.logger.error("Unable to calculate mAP score for dataset {}. You can increase sample size or select other classes.".format(dataset_key))
+            continue
         datasets_pd_data.append(current_data)
+
+    if len(background_only_datasets) == len(key_list):
+        raise ValueError(
+            f"Unable to calculate mAP score: all datasets in the sample contain only background images "
+            f"(no annotations for the selected classes). "
+            f"Try increasing the sample size or selecting different classes that have annotations."
+        )
+
+    if len(background_only_datasets) > 0:
+        sly.logger.warning("Some datasets were skipped during mAP calculation because they contain only background images.", extra={"datasets skipped": background_only_datasets})
+
     return datasets_pd_data
 
 
