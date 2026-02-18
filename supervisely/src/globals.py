@@ -44,18 +44,20 @@ pred_meta = None  # sly.ProjectMeta.from_json(_pred_meta_)
 
 def generate_meta():
     global aggregated_meta
-    # @TODO: get supervisely format meta to
     aggregated_meta = {'classes': [], 'tags': [], 'projectType': 'images'}
-    for i in _gt_meta_['classes']:
-        for j in _pred_meta_['classes']:
-            if i['title'] == j['title'] and i['shape'] == j['shape']:
-                aggregated_meta['classes'].append(i)
+
+    pred_classes = {(c['title'], c['shape']) for c in _pred_meta_['classes']}
+    aggregated_meta['classes'] = [
+        c for c in _gt_meta_['classes'] if (c['title'], c['shape']) in pred_classes
+    ]
+
     for i in _gt_meta_['tags']:
         aggregated_meta['tags'].append(i)
     tag_names = [i['name'] for i in aggregated_meta['tags']]
     for j in _pred_meta_['tags']:
         if j['name'] not in tag_names:
             aggregated_meta['tags'].append(j)
+
     aggregated_meta = sly.ProjectMeta.from_json(aggregated_meta)
 
 

@@ -64,8 +64,8 @@ def show_image_table_body(api, task_id, state, v_model, image_table):
                 else:
                     gt_cls_obj_num[image[1]][cls_id] = 1
 
-    agg_df['NPOS'] = agg_df.image.apply(lambda x: np.float(gt_npos[x]))
-
+    agg_df['NPOS'] = agg_df.image.apply(lambda x: float(gt_npos[x]))
+    
     def set_column_v2(data):
         tp = data[1]
         fp = data[2]
@@ -211,8 +211,8 @@ def show_images_body(api, task_id, state, gallery_template, v_model, gallery_tab
     # ann_1 = filter_classes(api.annotation.download(image_id_1), selected_classes)
     # ann_2 = filter_classes(api.annotation.download(image_id_2), selected_classes, score)
 
-    ann_1 = sly.Annotation.from_json(api.annotation.download(image_id_1).annotation, g.aggregated_meta)
-    ann_2 = sly.Annotation.from_json(api.annotation.download(image_id_2).annotation, g.aggregated_meta)
+    ann_1 = sly.Annotation.from_json(api.annotation.download(image_id_1).annotation, g.gt_meta)
+    ann_2 = sly.Annotation.from_json(api.annotation.download(image_id_2).annotation, g.pred_meta)
 
     dataset_name = selected_row_data['dataset_name']
     image_map_ = settings.object_mapper[dataset_name][image_name]
