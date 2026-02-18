@@ -211,8 +211,8 @@ def show_images_body(api, task_id, state, gallery_template, v_model, gallery_tab
     # ann_1 = filter_classes(api.annotation.download(image_id_1), selected_classes)
     # ann_2 = filter_classes(api.annotation.download(image_id_2), selected_classes, score)
 
-    ann_1 = sly.Annotation.from_json(api.annotation.download(image_id_1).annotation, g.aggregated_meta)
-    ann_2 = sly.Annotation.from_json(api.annotation.download(image_id_2).annotation, g.aggregated_meta)
+    ann_1 = sly.Annotation.from_json(api.annotation.download(image_id_1).annotation, g.gt_meta)
+    ann_2 = sly.Annotation.from_json(api.annotation.download(image_id_2).annotation, g.pred_meta)
 
     dataset_name = selected_row_data['dataset_name']
     image_map_ = settings.object_mapper[dataset_name][image_name]

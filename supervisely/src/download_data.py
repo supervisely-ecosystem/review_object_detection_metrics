@@ -206,8 +206,11 @@ def download(image_dict, percentage, cache, batch_size=200, show_info=False):
             for ix, batch in enumerate(sly.batched(slice_to_download, batch_size)):
                 image_ids = [image_info.id for image_info in batch]
                 ann_infos = g.api.annotation.download_batch(dataset_id, image_ids)
-                annotations = [sly.Annotation.from_json(ann_info.annotation, g.aggregated_meta) for ann_info in
-                               ann_infos]
+                project_meta = g.gt_meta if project_key == 'gt_images' else g.pred_meta
+                annotations = [
+                    sly.Annotation.from_json(ann_info.annotation, project_meta)
+                    for ann_info in ann_infos
+                ]
 
                 for batch_, annotation in zip(batch, annotations):
                     batch_image_id = batch_.id
