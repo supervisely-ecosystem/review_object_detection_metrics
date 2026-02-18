@@ -64,8 +64,8 @@ def show_image_table_body(api, task_id, state, v_model, image_table):
                 else:
                     gt_cls_obj_num[image[1]][cls_id] = 1
 
-    agg_df['NPOS'] = agg_df.image.apply(lambda x: np.float(gt_npos[x]))
-
+    agg_df['NPOS'] = agg_df.image.apply(lambda x: float(gt_npos[x]))
+    
     def set_column_v2(data):
         tp = data[1]
         fp = data[2]
