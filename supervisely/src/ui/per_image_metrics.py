@@ -5,7 +5,7 @@ from widgets.compare_gallery import CompareGallery
 
 import metrics
 import ui_utils
-# from supervisely_lib.app.widgets.sly_table import SlyTable
+# from supervisely.app.widgets.sly_table import SlyTable
 
 image_sly_table = None  # SlyTable(g.api, g.task_id, "data.perImageTable", g.image_columns)
 gallery_per_image = None  # CompareGallery(g.task_id, g.api, 'data.perImage', g.aggregated_meta)

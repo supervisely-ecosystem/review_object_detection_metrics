@@ -6,7 +6,7 @@ import globals as g
 import ui
 from src.bounding_box import BoundingBox as RepoBoundingBox, BBType
 # from supervisely.src.ui import metrics, overall_metrics, per_image_metrics, per_class_metrics
-# from supervisely_lib.app.widgets.confusion_matrix import ConfusionMatrix, plt2bb
+# from supervisely.app.widgets.confusion_matrix import ConfusionMatrix, plt2bb
 from utils import plt2bb
 from widgets.confusion_matrix import ConfusionMatrix
 

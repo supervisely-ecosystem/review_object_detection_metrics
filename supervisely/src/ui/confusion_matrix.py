@@ -6,7 +6,7 @@ from widgets.confusion_matrix import ConfusionMatrix
 from widgets.compare_gallery import CompareGallery
 from widgets.sly_table import SlyTable
 
-# from supervisely_lib.app.widgets.confusion_matrix import ConfusionMatrix
+# from supervisely.app.widgets.confusion_matrix import ConfusionMatrix
 
 confusion_matrix = ConfusionMatrix(api=g.api, task_id=g.task_id, v_model='data.slyConfusionMatrix')
 cm_image_table = None  # SlyTable(g.api, g.task_id, 'data.CMTableImages', g.image_columns)
